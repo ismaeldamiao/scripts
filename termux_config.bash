@@ -20,7 +20,7 @@ if ! [ -x $PREFIX/bin/screenfetch ]; then
    chmod 755 $PREFIX/bin/screenfetch
 fi
 
-if ! [ -x $HOME/.bashrc ]; then
+if ! [ -a $HOME/.bashrc ]; then
    wget -qO $HOME/.bashrc \
    https://raw.githubusercontent.com/ismaeldamiao/scripts/master/.bashrc
 fi
@@ -35,6 +35,9 @@ proot wget openssh nano htop coreutils gnuplot ncurses-utils
 clear
 echo "Escrevendo scripts e configurando ssh"
 
+if [ -x $PREFIX/bin/update ]; then
+   rm $PREFIX/bin/update
+fi
 cat > $PREFIX/bin/update <<- EOM
 #!/data/data/com.termux/files/usr/bin/bash
 apt update
