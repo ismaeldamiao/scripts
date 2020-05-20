@@ -47,18 +47,9 @@ if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    # ***************************************************************************
    # Comando específicos do Termux
    # ***************************************************************************
-
-   # Execute o screenfetch ou, em caso dele não existir,
-   # deixe-o fácil de instalar
-   if [ -x $PREFIX/bin/screenfetch ]; then
-      bash $PREFIX/bin/screenfetch
-   else
-      alias screenfetch='wget -qO $PREFIX/bin/screenfetch https://git.io/vaHfR \
-      && chmod 755 $PREFIX/bin/screenfetch'
-   fi
    USER='user'
-   HOSTNAME='Termux'
-   PS1FINAL='\n\$ '
+   HOSTNAME='$(getprop ro.product.model)'
+   PS1FINAL='\[\n\]\$ '
    # Facilitar acesso ao diretório do ubuntu
    UBUNTU=$HOME/ubuntu/ubuntu-fs/root
    # aliases Termux
@@ -70,15 +61,7 @@ else
 
    # Execute o screenfetch ou, em caso dele não existir,
    # deixe-o fácil de instalar
-   if [ -x $HOME/bin/screenfetch ]; then
-      bash $HOME/bin/screenfetch
-   else
-      if [ ! -d $HOME/bin ]; then mkdir $HOME/bin; fi
-      alias screenfetch='wget -qO $HOME/bin/screenfetch https://git.io/vaHfR \
-      && chmod 755 $HOME/bin/screenfetch'
-   fi
    PS1FINAL='\$ '
-   DRIVE=/media/felipe/drive
    # aliases distros
    alias sshd='sudo service ssh restart'
 fi
