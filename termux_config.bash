@@ -1,5 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# Por Ismael Damião
+# Site: https://ismaeldamiao.github.io/
+# E-mail: ismaellxd@gmail.com
+# Última alteração: 20 de maio de 2020
+
 # Use:
 # wget -q https://github.com/ismaeldamiao/scripts/raw/master/termux_config.bash && bash termux_config.bash
 
