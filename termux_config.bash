@@ -42,17 +42,21 @@ EOM
 chmod 755 $PREFIX/bin/update
 
 if [ -a $PREFIX/etc/ssh_config ]; then
-   rm $PREFIX/etc/ssh_config
+   rm $PREFIX/etc/ssh/ssh_config
 fi
-cat > $PREFIX/etc/ssh_config <<- EOM
+cat > $PREFIX/etc/ssh/ssh_config <<- EOM
 Port 22
 EOM
 
-if [ -a $PREFIX/etc/sshd_config ]; then
-   rm $PREFIX/etc/ssh_config
+if [ -a $PREFIX/etc/ssh/sshd_config ]; then
+   rm $PREFIX/etc/ssh/sshd_config
 fi
-cat > $PREFIX/etc/ssh_config <<- EOM
+cat > $PREFIX/etc/ssh/sshd_config <<- EOM
 Port 2225
 EOM
+
+echo " "
+echo "Configure sua senha"
+passwd
 
 echo "Pronto!!"
