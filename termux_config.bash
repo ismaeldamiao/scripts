@@ -52,7 +52,8 @@ chmod 755 $PREFIX/bin/update
 if [ -a $PREFIX/etc/ssh_config ]; then
    rm $PREFIX/etc/ssh/ssh_config
 fi
-echo "Port 22" >> $PREFIX/etc/ssh/ssh_config
+echo "Host *" >> $PREFIX/etc/ssh/ssh_config
+echo "   Port 22" >> $PREFIX/etc/ssh/ssh_config
 
 if [ -a $PREFIX/etc/ssh/sshd_config ]; then
    rm $PREFIX/etc/ssh/sshd_config
