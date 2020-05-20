@@ -2,7 +2,7 @@
 # Por Ismael Damião
 # Blog: http://ismaeldamiao.blogspot.com/
 # E-mail: ismaellxd@gmail.com
-# Última alteração: 18 de maio de 2020
+# Última alteração: 20 de maio de 2020
 
 # ******************************************************************************
 # Comando para Distros Linux e Termux
