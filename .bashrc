@@ -49,7 +49,7 @@ if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    # ***************************************************************************
    USER='user'
    HOSTNAME='$(getprop ro.product.model)'
-   PS1FINAL='\[\n\]\$ '
+   PS1FINAL='\n\$ '
    # Facilitar acesso ao diretório do ubuntu
    UBUNTU=$HOME/ubuntu/ubuntu-fs/root
    # aliases Termux
