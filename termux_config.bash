@@ -33,6 +33,7 @@ apt install --install-suggests -y \
 proot wget openssh nano htop coreutils gnuplot ncurses-utils
 
 clear
+termux-setup-storage
 echo "Escrevendo scripts e configurando ssh"
 
 if [ -x $PREFIX/bin/update ]; then
