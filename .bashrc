@@ -2,7 +2,7 @@
 # Por Ismael Damião
 # Site: https://ismaeldamiao.github.io/
 # E-mail: ismaellxd@gmail.com
-# Última alteração: 20 de maio de 2020
+# Última alteração: 30 de maio de 2020
 
 # ******************************************************************************
 # Comando para Distros Linux e Termux
@@ -34,6 +34,8 @@ alias scp='scp -rp'
 # ******************
 # Paleta de cores
 # ******************
+# Note que pode ser preciso instalar o tput
+# apt install ncurses-utils
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -58,9 +60,6 @@ else
    # ***************************************************************************
    # Comando específicos de Distros Linux
    # ***************************************************************************
-
-   # Execute o screenfetch ou, em caso dele não existir,
-   # deixe-o fácil de instalar
    PS1FINAL='\$ '
    # aliases distros
    alias sshd='sudo service ssh restart'
