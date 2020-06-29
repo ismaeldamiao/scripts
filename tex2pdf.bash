@@ -15,25 +15,72 @@
 #  Para facilitar:          sudo cp tex2pdf.bash /bin/tex2pdf && sudo chmod 755 /bin/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
 
+# Mensagem de ajuda
+usage(){
+cat << EOF
+Script para compilar arquivos .tex escritos em LaTeX
 
-function tex (){
- pdflatex -shell-escape --interaction=nonstopmode $1
- pdflatex -shell-escape --interaction=nonstopmode $1
- bibtex $(basename $1 .tex)
- pdflatex -shell-escape --interaction=nonstopmode $1
- bibtex $(basename $1 .tex)
- makeindex $(basename $1 .tex).glo -s $(basename $1 .tex).ist -t $(basename $1 .tex).glg -o $(basename $1 .tex).gls
- makeindex -s $(basename $1 .tex).ist -t $(basename $1 .tex).nlg -o $(basename $1 .tex).ntn $(basename $1 .tex).not
- 
- pdflatex -shell-escape --interaction=nonstopmode $1
- bibtex $(basename $1 .tex)
- makeindex $(basename $1 .tex).glo -s $(basename $1 .tex).ist -t $(basename $1 .tex).glg -o $(basename $1 .tex).gls
- makeindex -s $(basename $1 .tex).ist -t $(basename $1 .tex).nlg -o $(basename $1 .tex).ntn $(basename $1 .tex).not
- 
- pdflatex -shell-escape --interaction=nonstopmode $1
- pdflatex -shell-escape --interaction=nonstopmode $1
- pdflatex -shell-escape --interaction=nonstopmode $1
- [ -e $(basename $1 .tex).pdf ] && xdg-open $(basename $1 .tex).pdf&   
+Use $0 [arg]
+arg:
+    [-h] [help]               Ver esta menssagem
+    [NomeArquivo.tex]         Para compilar
+    [-v] [NomeArquivo.tex]    Para compilar e ver a saida dos comandos
+EOF
 }
-tex $@
-rm *.dvi *.gz *.dvi *.bak *.bbl *.blg *.log *.aux *.toc *.lof *.lot
+
+# Funcao que compila o .tex
+function tex (){
+   if ! pdflatex -shell-escape --interaction=nonstopmode $1; then res=1; fi
+   pdflatex -shell-escape --interaction=nonstopmode $1
+
+   bibtex ${NOME}
+   pdflatex -shell-escape --interaction=nonstopmode $1
+   bibtex ${NOME}
+
+   makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
+   makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
+
+   pdflatex -shell-escape --interaction=nonstopmode $1
+   bibtex ${NOME}
+   makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
+   makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
+
+   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode $1
+   
+   res=0
+}
+
+# Verificar argumentos passados ao script
+for arg in "$@"; do
+   # Ajuda
+   if [ "$arg" == "-h" ] || [ "$arg" == "help" ] || [ "$arg" == "--help" ]; then
+      usage
+      exit 0
+   fi
+   # Saida do compilador
+   if [ "$arg" == "-v" ]; then V="TRUE"; fi
+done
+
+NOME=$(basename $1 .tex)
+if [ "$V" == "TRUE" ]; then
+   # Compilar com saida
+   tex $@
+else
+   # Compilar sem saida
+   tex $@ > out.log 2> /dev/null
+fi
+
+if [ "$res" == "0" ]; then
+   rm *.dvi *.gz *.dvi *.bak *.bbl *.blg *.aux *.toc\
+    *.lof *.lot > out.log 2> /dev/null
+   rm *.log
+   [ -e ${NOME}.pdf ] && xreader ${NOME}.pdf &
+   #[ -e ${NOME}.pdf ] && xdg-open ${NOME}.pdf &
+   exit 0
+else
+   echo " "
+   echo "Nao foi possivel compilar seu arquivo corretamente"
+   exit 1
+fi
