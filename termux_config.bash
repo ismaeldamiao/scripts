@@ -32,19 +32,6 @@ clear
 termux-setup-storage
 echo "Escrevendo scripts e configurando ssh"
 
-if [ -x $PREFIX/bin/update ]; then rm $PREFIX/bin/update; fi
-
-cat > $PREFIX/bin/update <<EOF
-#!/data/data/com.termux/files/usr/bin/bash
-apt update
-apt autoremove --purge -y
-apt install --install-suggests -yf
-apt upgrade --with-new-pkgs --install-suggests -y
-apt dist-upgrade --install-suggests -y
-apt autoremove --purge -y
-EOF
-chmod 755 $PREFIX/bin/update
-
 if ! [ -a $HOME/.termux/termux.properties ]; then
    
    cat > $HOME/.termux/termux.properties <<EOF
@@ -70,9 +57,11 @@ shortcut.rename-session = ctrl + n
 bell-character=ignore
 
 # Send the Escape key.
-back-key=escape
+back-key=back
 EOF
 fi
+
+termux-reload-settings
 
 if [ -a $PREFIX/etc/ssh_config ]; then rm $PREFIX/etc/ssh/ssh_config; fi
 echo "Host *" >> $PREFIX/etc/ssh/ssh_config
