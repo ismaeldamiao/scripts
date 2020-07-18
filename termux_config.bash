@@ -3,7 +3,7 @@
 # Por Ismael Damião
 # Site: https://ismaeldamiao.github.io/
 # E-mail: ismaellxd@gmail.com
-# Última alteração: 20 de junho de 2020
+# Última alteração: 18 de julho de 2020
 
 # Use:
 # wget -q https://github.com/ismaeldamiao/scripts/raw/master/termux_config.bash && bash termux_config.bash
@@ -27,6 +27,19 @@ apt update
 apt upgrade --with-new-pkgs -y
 apt install -y \
 proot wget openssh nano htop coreutils gnuplot ncurses-utils
+
+arch="$(dpkg --print-architecture)"
+cctoolshttp="http://cctools.info/downloads/termux"
+wget -q \
+"${cctoolshttp}/${arch}/binutils-cctools_2.34_${arch}.deb"
+wget -q \
+"${cctoolshttp}/${arch}/gcc-cctools_10.1.0_${arch}.deb"
+wget -q \
+"${cctoolshttp}/${arch}/ndk-sysroot-cctools-api-26-${arch}_1.0r15c_all.deb"
+
+echo \
+"export PATH=/data/data/com.termux/files/cctools-toolchain/bin:$PATH" >> \
+$HOME/.bashrc
 
 clear
 termux-setup-storage
