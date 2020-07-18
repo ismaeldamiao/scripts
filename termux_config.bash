@@ -40,7 +40,7 @@ wget -q \
 dpkg -i *.deb
 
 echo \
-"export PATH=/data/data/com.termux/files/cctools-toolchain/bin:$PATH" >> \
+"export PATH=/data/data/com.termux/files/cctools-toolchain/bin:\$PATH" >> \
 $HOME/.bashrc
 
 clear
