@@ -37,6 +37,8 @@ wget -q \
 wget -q \
 "${cctoolshttp}/${arch}/ndk-sysroot-cctools-api-26-${arch}_1.0r15c_all.deb"
 
+dpkg -i *.deb
+
 echo \
 "export PATH=/data/data/com.termux/files/cctools-toolchain/bin:$PATH" >> \
 $HOME/.bashrc
