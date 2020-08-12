@@ -21,60 +21,42 @@ if ! [ -a $HOME/.bashrc ]; then
    https://raw.githubusercontent.com/ismaeldamiao/scripts/master/.bashrc
 fi
 
-echo "Instalado pacotes uteis"
+echo "Instalado pacotes uteis (isso pode demorar)"
 
 apt update
-apt upgrade --with-new-pkgs -y
+apt upgrade -y > /dev/null
 apt install -y \
-proot wget openssh nano htop coreutils gnuplot ncurses-utils
+proot wget openssh nano htop coreutils gnuplot ncurses-utils > /dev/null
 
-arch="$(dpkg --print-architecture)"
-cctoolshttp="http://cctools.info/downloads/termux"
 wget -q \
-"${cctoolshttp}/${arch}/binutils-cctools_2.34_${arch}.deb"
-wget -q \
-"${cctoolshttp}/${arch}/gcc-cctools_10.1.0_${arch}.deb"
-wget -q \
-"${cctoolshttp}/${arch}/ndk-sysroot-cctools-api-26-${arch}_1.0r15c_all.deb"
+"https://github.com/ismaeldamiao/scripts/raw/master/install-termux-cctools.bash"
+bash install-termux-cctools.bash > /dev/null
 
-dpkg -i *.deb
-
-echo \
-"export PATH=/data/data/com.termux/files/cctools-toolchain/bin:\$PATH" >> \
-$HOME/.bashrc
-
-clear
 termux-setup-storage
 echo "Escrevendo scripts e configurando ssh"
 
-if ! [ -a $HOME/.termux/termux.properties ]; then
+if [ -a $HOME/.termux/termux.properties ]; then
+   rm $HOME/.termux/termux.properties
+fi
    
-   cat > $HOME/.termux/termux.properties <<EOF
+cat > $HOME/.termux/termux.properties <<EOF
 extra-keys = [ \
  ['ESC','|','/','HOME','UP','END','-','DEL'], \
  ['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','+','BKSP'] \
 ]
-
 # Open a new terminal with ctrl + t (volume down + t)
 shortcut.create-session = ctrl + t
-
 # Go one session down with (for example) ctrl + 2
 shortcut.next-session = ctrl + 2
-
 # Go one session up with (for example) ctrl + 1
 shortcut.previous-session = ctrl + 1
-
 # Rename a session with (for example) ctrl + n
 shortcut.rename-session = ctrl + n
-
-
 # Ignore bell character (vibrate,beep,ignore)
 bell-character=ignore
-
 # Send the Escape key.
 back-key=back
 EOF
-fi
 
 termux-reload-settings
 
