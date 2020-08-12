@@ -3,7 +3,7 @@
 # Por Ismael Damião
 # Site: https://ismaeldamiao.github.io/
 # E-mail: ismaellxd@gmail.com
-# Última alteração: 18 de julho de 2020
+# Última alteração: 12 de agosto de 2020
 
 # Use:
 # wget -q https://github.com/ismaeldamiao/scripts/raw/master/termux_config.bash && bash termux_config.bash
