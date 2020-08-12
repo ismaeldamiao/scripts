@@ -1,5 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# Por Ismael Damião
+# Site: https://ismaeldamiao.github.io/
+# E-mail: ismaellxd@gmail.com
+# Última alteração: 12 de agosto 2020
+
 arch="$(dpkg --print-architecture)"
 cctoolshttp="http://cctools.info/downloads/termux"
 
@@ -23,7 +28,12 @@ wget -q \
 "${cctoolshttp}/${arch}/ndk-sysroot-cctools-api-${sdk}-${arch}_1.0r15c_all.deb"
 if [ "$?" != "0" ]; then exit 1; fi
 
-dpkg -i *.deb
+# instalando clang
+dpkg -i "binutils-cctools_2.34_${arch}.deb"
+if [ "$?" != "0" ]; then exit 1; fi
+dpkg -i "gcc-cctools_10.1.0_${arch}.deb"
+if [ "$?" != "0" ]; then exit 1; fi
+dpkg -i "ndk-sysroot-cctools-api-${sdk}-${arch}_1.0r15c_all.deb"
 if [ "$?" != "0" ]; then exit 1; fi
 
 echo "export PATH=/data/data/com.termux/files/cctools-toolchain/bin:\$PATH"\
