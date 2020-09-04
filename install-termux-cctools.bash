@@ -28,7 +28,7 @@ if [ "$sdk" > "26" ]; then sdk="26"; fi
 
 apt install ndk-sysroot-cctools-api-${sdk}-${arch}
 
-echo "export \$PREFIX/../cctools-toolchain/bin:\$PATH"\
+echo "export PATH=\$PREFIX/../cctools-toolchain/bin:\$PATH"\
 >> $HOME/.bashrc
 
 export PATH=$PREFIX/../cctools-toolchain/bin:$PATH
