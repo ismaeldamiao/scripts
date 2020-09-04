@@ -31,6 +31,6 @@ apt install ndk-sysroot-cctools-api-${sdk}-${arch}
 echo "export \$PREFIX/../cctools-toolchain/bin:\$PATH"\
 >> $HOME/.bashrc
 
-export $PREFIX/../cctools-toolchain/bin:$PATH
+export PATH=$PREFIX/../cctools-toolchain/bin:$PATH
 
 exit 0
