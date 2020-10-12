@@ -1,6 +1,6 @@
 # ~/.bashrc: executed by bash for non-login shells.
 # Por Ismael Damião
-# Blog: http://ismaeldamiao.blogspot.com/
+# Site: https://ismaeldamiao.github.io/
 # E-mail: ismaellxd@gmail.com
 # Última alteração: 12 de outubro de 2020
 
