@@ -4,6 +4,7 @@
 # E-mail: ismaellxd@gmail.com
 # Última alteração: 12 de outubro de 2020
 
+if tty > /dev/null; then
 # ******************************************************************************
 # Comando para Distros Linux e Termux
 # ******************************************************************************
@@ -31,7 +32,6 @@ alias mkdir='mkdir -p'
 alias scp='scp -rp'
 #alias myip='curl ipinfo.io/ip'
 
-if tty > /dev/null; then
 # ******************
 # Paleta de cores
 # ******************
@@ -43,7 +43,6 @@ BLUE=$(tput setaf 4)
 MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
 WHITE=$(tput setaf 7)
-fi
 
 if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    # ***************************************************************************
@@ -86,4 +85,5 @@ PS1=\
 \[$RED\]$HOSTNAME\
 \[$WHITE\]:\[$BLUE\]\w\[$WHITE\]$PS1FINAL\
 \[$(tput sgr0)\]"
+fi
 fi
