@@ -1,8 +1,8 @@
 # ~/.bashrc: executed by bash for non-login shells.
 # Por Ismael Damião
-# Site: https://ismaeldamiao.github.io/
+# Blog: http://ismaeldamiao.blogspot.com/
 # E-mail: ismaellxd@gmail.com
-# Última alteração: 30 de maio de 2020
+# Última alteração: 12 de outubro de 2020
 
 # ******************************************************************************
 # Comando para Distros Linux e Termux
@@ -34,8 +34,6 @@ alias scp='scp -rp'
 # ******************
 # Paleta de cores
 # ******************
-# Note que pode ser preciso instalar o tput
-# apt install ncurses-utils
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -60,12 +58,17 @@ else
    # ***************************************************************************
    # Comando específicos de Distros Linux
    # ***************************************************************************
+
+   # Execute o screenfetch ou, em caso dele não existir,
+   # deixe-o fácil de instalar
    PS1FINAL='\$ '
+   DRIVE=/media/felipe/drive
    # aliases distros
    alias sshd='sudo service ssh restart'
 fi
 # Mude aqui as cores ou outras coisas do PS1, se quiser
 # Todos os bytes não imprimíveis devem estar entre \[ \]
+if [ "$EUID" -ne 0 ]; then # Quando usuario comum
 PS1=\
 "\[$(tput bold)\]\
 \[$GREEN\]$USER\
@@ -73,3 +76,12 @@ PS1=\
 \[$GREEN\]$HOSTNAME\
 \[$WHITE\]:\[$BLUE\]\w\[$WHITE\]$PS1FINAL\
 \[$(tput sgr0)\]"
+else # Quando usuario root
+PS1=\
+"\[$(tput bold)\]\
+\[$RED\]$USER\
+\[$WHITE\]@\
+\[$RED\]$HOSTNAME\
+\[$WHITE\]:\[$BLUE\]\w\[$WHITE\]$PS1FINAL\
+\[$(tput sgr0)\]"
+fi
