@@ -31,6 +31,7 @@ alias mkdir='mkdir -p'
 alias scp='scp -rp'
 #alias myip='curl ipinfo.io/ip'
 
+if tty > /dev/null; then
 # ******************
 # Paleta de cores
 # ******************
@@ -42,6 +43,7 @@ BLUE=$(tput setaf 4)
 MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
 WHITE=$(tput setaf 7)
+fi
 
 if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    # ***************************************************************************
