@@ -4,7 +4,7 @@
 # E-mail: ismaellxd@gmail.com
 # Última alteração: 12 de outubro de 2020
 
-if tty > /dev/null; then
+if tty > /dev/null; then # Executar somente em terminal interativo
 # ******************************************************************************
 # Comando para Distros Linux e Termux
 # ******************************************************************************
