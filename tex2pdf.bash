@@ -48,8 +48,6 @@ function tex (){
    pdflatex -shell-escape --interaction=nonstopmode $1
    pdflatex -shell-escape --interaction=nonstopmode $1
    pdflatex -shell-escape --interaction=nonstopmode $1
-   
-   res=0
 }
 
 # Verificar argumentos passados ao script
