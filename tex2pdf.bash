@@ -30,7 +30,7 @@ EOF
 
 # Funcao que compila o .tex
 function tex (){
-   if ! pdflatex -shell-escape --interaction=nonstopmode $1; then res=1; fi
+   pdflatex -shell-escape --interaction=nonstopmode $1
    pdflatex -shell-escape --interaction=nonstopmode $1
 
    bibtex ${NOME}
@@ -72,15 +72,13 @@ else
    tex $@ > out.log 2> /dev/null
 fi
 
-if [ "$res" == "0" ]; then
-   rm *.dvi *.gz *.dvi *.bak *.bbl *.blg *.aux *.toc\
-    *.lof *.lot > out.log 2> /dev/null
-   rm *.log
-   [ -e ${NOME}.pdf ] && xreader ${NOME}.pdf &
-   #[ -e ${NOME}.pdf ] && xdg-open ${NOME}.pdf &
-   exit 0
+rm *.dvi *.gz *.dvi *.bak *.bbl *.blg *.aux *.toc\
+*.lof *.lot > out.log 2> /dev/null
+rm *.log
+
+if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
+   [ -e ${NOME}.pdf ] && termux-open ${NOME}.pdf &
 else
-   echo " "
-   echo "Nao foi possivel compilar seu arquivo corretamente"
-   exit 1
+   [ -e ${NOME}.pdf ] && xdg-open ${NOME}.pdf &
+   #[ -e ${NOME}.pdf ] && xreader ${NOME}.pdf &
 fi
