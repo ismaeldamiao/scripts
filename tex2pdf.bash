@@ -15,7 +15,13 @@
 #  Para facilitar:          sudo cp tex2pdf.bash /bin/tex2pdf && sudo chmod 755 /bin/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
 
+
+NOME=$(basename $1 .tex)
+
+# ###
 # Mensagem de ajuda
+# ###
+
 usage(){
 cat << EOF
 Script para compilar arquivos .tex escritos em LaTeX
@@ -24,56 +30,90 @@ Use $0 [arg]
 arg:
     [-h] [help]               Ver esta menssagem
     [NomeArquivo.tex]         Para compilar
-    [-v] [NomeArquivo.tex]    Para compilar e ver a saida dos comandos
+    [NomeArquivo.tex] [-v]    Para compilar e mostrar o stdout e o stderr
 EOF
 }
 
-# Funcao que compila o .tex
+
+# ###
+# Funcao que compila o arquivo .tex
+# ###
+
 function tex (){
-   pdflatex -shell-escape --interaction=nonstopmode $1
-   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
 
    bibtex ${NOME}
-   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
    bibtex ${NOME}
 
    makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
    makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
 
-   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
    bibtex ${NOME}
    makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
    makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
 
-   pdflatex -shell-escape --interaction=nonstopmode $1
-   pdflatex -shell-escape --interaction=nonstopmode $1
-   pdflatex -shell-escape --interaction=nonstopmode $1
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
 }
 
+
+# Verificar se o compilador LaTeX estah instalado
+
+if ! command -v pdflatex > /dev/null 2>&1; then
+   exit 1
+fi
+
+if ! [ -e ${NOME}.tex ]; then
+   exit 1
+fi
+
+# ###
 # Verificar argumentos passados ao script
+# ###
+
+# Ajuda
 for arg in "$@"; do
-   # Ajuda
    if [ "$arg" == "-h" ] || [ "$arg" == "help" ] || [ "$arg" == "--help" ]; then
       usage
       exit 0
    fi
-   # Saida do compilador
-   if [ "$arg" == "-v" ]; then V="TRUE"; fi
 done
 
-NOME=$(basename $1 .tex)
-if [ "$V" == "TRUE" ]; then
+# Saida do compilador
+if [ "$1" == "-v" ] || [ "$2" == "-v" ]; then
    # Compilar com saida
    tex $@
 else
-   # Compilar sem saida
-   tex $@ > out.log 2> /dev/null
+   # Compilar sem saida (stdout e stderr em /dev/null)
+   tex $@ > /dev/null 2>&1
 fi
 
-rm *.dvi *.gz *.dvi *.bak *.bbl *.blg *.aux *.toc\
-*.lof *.lot > out.log 2> /dev/null
-rm *.log
 
+# ###
+# Deletar arquivos criados
+# ###
+
+rm \
+${NOME}.dvi \
+${NOME}.gz \
+${NOME}.dvi \
+${NOME}.bak \
+${NOME}.bbl \
+${NOME}.blg \
+${NOME}.aux \
+${NOME}.toc \
+${NOME}.lof \
+${NOME}.lot \
+${NOME}.log > /dev/null 2>&1
+
+
+# ###
+# Abrir pdf
+# ###
 if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    [ -e ${NOME}.pdf ] && termux-open ${NOME}.pdf &
 else
