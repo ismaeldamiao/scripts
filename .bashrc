@@ -61,9 +61,6 @@ else
    # ***************************************************************************
    # Comando específicos de Distros Linux
    # ***************************************************************************
-
-   # Execute o screenfetch ou, em caso dele não existir,
-   # deixe-o fácil de instalar
    PS1FINAL='\$ '
    DRIVE=/media/felipe/drive
    # aliases distros
