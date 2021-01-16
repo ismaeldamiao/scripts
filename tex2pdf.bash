@@ -10,7 +10,7 @@
 #  E-mail: ismaellxd@gmail.com
 #  Mudificacoes: Gerar graficos com GNUPlot na saida LaTex de forma correta
 #                e nome mais sugestivo
-#
+#  Ultima alteracao em 16/01/2021
 #
 #  Para facilitar:          sudo cp tex2pdf.bash /bin/tex2pdf && sudo chmod 755 /bin/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
@@ -28,6 +28,7 @@ arg:
     [-h] [help]               Ver esta menssagem
     [NomeArquivo.tex]         Para compilar
     [NomeArquivo.tex] [-v]    Para compilar e mostrar o stdout e o stderr
+    [--update]                Para atualizar este script
 EOF
 }
 
