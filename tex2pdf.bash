@@ -80,7 +80,7 @@ for arg in "$@"; do
    if [ "$arg" == "-h" ] || [ "$arg" == "help" ] || [ "$arg" == "--help" ]; then
       usage
       exit 0
-   elif [ "$arg" == *".tex" ]; then
+   elif [[ "$arg" == *".tex" ]]; then
       NOME=$(basename $arg .tex)
    elif [ "$arg" == "--update" ]; then
       update
