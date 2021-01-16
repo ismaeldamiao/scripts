@@ -15,9 +15,6 @@
 #  Para facilitar:          sudo cp tex2pdf.bash /bin/tex2pdf && sudo chmod 755 /bin/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
 
-
-NOME=$(basename $1 .tex)
-
 # ###
 # Mensagem de ajuda
 # ###
@@ -34,42 +31,44 @@ arg:
 EOF
 }
 
+# ###
+# Atualizar script
+# ###
+
+update(){
+   if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
+      file=$PREFIX/bin/tex2pdf
+   else
+      file=$HOME/bin/tex2pdf
+   fi
+   wget -qO $file https://raw.githubusercontent.com/ismaeldamiao/scripts/master/tex2pdf.bash
+   chmod 700 $file
+}
 
 # ###
 # Funcao que compila o arquivo .tex
 # ###
 
-function tex (){
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
+function tex(){
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
 
-   bibtex ${NOME}
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
-   bibtex ${NOME}
+   bibtex ${1}
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
+   bibtex ${1}
 
-   makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
-   makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
+   makeindex ${1}.glo -s ${NOME}.ist -t ${1}.glg -o ${1}.gls
+   makeindex -s ${1}.ist -t ${NOME}.nlg -o ${1}.ntn ${1}.not
 
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
-   bibtex ${NOME}
-   makeindex ${NOME}.glo -s ${NOME}.ist -t ${NOME}.glg -o ${NOME}.gls
-   makeindex -s ${NOME}.ist -t ${NOME}.nlg -o ${NOME}.ntn ${NOME}.not
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
+   bibtex ${1}
+   makeindex ${1}.glo -s ${1}.ist -t ${1}.glg -o ${1}.gls
+   makeindex -s ${1}.ist -t ${1}.nlg -o ${1}.ntn ${1}.not
 
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
-   pdflatex -shell-escape --interaction=nonstopmode ${NOME}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
+   pdflatex -shell-escape --interaction=nonstopmode ${1}.tex
 }
-
-
-# Verificar se o compilador LaTeX estah instalado
-
-if ! command -v pdflatex > /dev/null 2>&1; then
-   exit 1
-fi
-
-if ! [ -e ${NOME}.tex ]; then
-   exit 1
-fi
 
 # ###
 # Verificar argumentos passados ao script
@@ -77,21 +76,33 @@ fi
 
 # Ajuda
 for arg in "$@"; do
+   # Menssagem de ajuda
    if [ "$arg" == "-h" ] || [ "$arg" == "help" ] || [ "$arg" == "--help" ]; then
       usage
       exit 0
+   elif [ "$arg" == *".tex" ]; then
+      NOME=$(basename $arg .tex)
+   elif [ "$arg" == "--update" ]; then
+      update
+      exec tex2pdf $@
+   elfi [ "$arg" == "-v"]; then
+      std="stdout"
    fi
 done
 
+# Verificar se o compilador LaTeX estah instalado
+command -v pdflatex 1> /dev/null 2>&1 || exit 1
+# Verificar se o arquivo .tex existe
+[ -e ${NOME}.tex ] || exit 1
+
 # Saida do compilador
-if [ "$1" == "-v" ] || [ "$2" == "-v" ]; then
+if [ "$std" == "stdout" ]; then
    # Compilar com saida
-   tex $@
+   tex $NOME
 else
    # Compilar sem saida (stdout e stderr em /dev/null)
-   tex $@ > /dev/null 2>&1
+   tex $NOME 1> /dev/null 2>&1
 fi
-
 
 # ###
 # Deletar arquivos criados
@@ -110,13 +121,15 @@ ${NOME}.lof \
 ${NOME}.lot \
 ${NOME}.log > /dev/null 2>&1
 
-
 # ###
 # Abrir pdf
 # ###
+
 if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
    [ -e ${NOME}.pdf ] && termux-open ${NOME}.pdf &
 else
    [ -e ${NOME}.pdf ] && xdg-open ${NOME}.pdf &
    #[ -e ${NOME}.pdf ] && xreader ${NOME}.pdf &
 fi
+
+exit 0
