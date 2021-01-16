@@ -85,7 +85,7 @@ for arg in "$@"; do
    elif [ "$arg" == "--update" ]; then
       update
       exec tex2pdf $@
-   elfi [ "$arg" == "-v"]; then
+   elif [ "$arg" == "-v"]; then
       std="stdout"
    fi
 done
