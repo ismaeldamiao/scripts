@@ -84,7 +84,7 @@ for arg in "$@"; do
       NOME=$(basename $arg .tex)
    elif [ "$arg" == "--update" ]; then
       update
-      exec tex2pdf $@
+      exit $?
    elif [ "$arg" == "-v"]; then
       std="stdout"
    fi
