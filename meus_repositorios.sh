@@ -35,7 +35,7 @@ else
    # ###
 
    echo "# Linux Mint" > ${FILE}
-   echo "deb http://packages.linuxmint.com/ tricia main upstream import backport" > ${FILE}
+   echo "deb http://packages.linuxmint.com/ ulyssa main upstream import backport" > ${FILE}
    wget -q "http://packages.linuxmint.com/pool/main/l/linuxmint-keyring/linuxmint-keyring_2016.05.26_all.deb"
    dpkg -i linuxmint-keyring_2016.05.26_all.deb
    echo " "
