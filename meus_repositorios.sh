@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$EUID" -ne 0 ]; then
+if [ "${EUID}" -ne 0 ]; then
    echo "Por favor execute como super usuario:"
    echo "sudo ${0}"
    exit 1
