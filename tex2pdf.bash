@@ -43,7 +43,7 @@ update(){
       file="${HOME}/bin/tex2pdf"
    fi
    wget -qO "${file}" https://raw.githubusercontent.com/ismaeldamiao/scripts/master/tex2pdf.bash
-   chmod 500 "${file}"
+   chmod 700 "${file}"
 }
 
 # ###
