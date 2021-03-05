@@ -12,7 +12,7 @@
 #                e nome mais sugestivo
 #  Ultima alteracao em 05/03/2021
 #
-#  Para facilitar:          mv tex2pdf.bash ~/tex2pdf && chmod 500 ~/tex2pdf
+#  Para facilitar:          mv tex2pdf.bash ~/bin/tex2pdf && chmod 500 ~/bin/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
 
 # ###
