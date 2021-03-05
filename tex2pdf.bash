@@ -53,24 +53,24 @@ update(){
 function tex(){
    arg_pdflatex="-shell-escape --interaction=nonstopmode"
 
-   pdflatex "${arg_pdflatex}" "${1}.tex"
-   pdflatex "${arg_pdflatex}" "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
 
    bibtex "${1}"
-   pdflatex "${arg_pdflatex}" "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
    bibtex "${1}"
 
    makeindex "${1}.glo" -s "${1}.ist" -t "${1}.glg" -o "${1}.gls"
    makeindex -s "${1}.ist" -t "${1}.nlg" -o "${1}.ntn" "${1}.not"
 
-   pdflatex "${arg_pdflatex}" "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
    bibtex "${1}"
    makeindex "${1}.glo" -s "${1}.ist" -t "${1}.glg" -o "${1}.gls"
    makeindex -s "${1}.ist" -t "${1}.nlg" -o "${1}.ntn" "${1}.not"
 
-   pdflatex "${arg_pdflatex}" "${1}.tex"
-   pdflatex "${arg_pdflatex}" "${1}.tex"
-   pdflatex "${arg_pdflatex}" "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
+   pdflatex ${arg_pdflatex} "${1}.tex"
 }
 
 # ###
