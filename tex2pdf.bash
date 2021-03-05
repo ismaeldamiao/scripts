@@ -12,7 +12,7 @@
 #                e nome mais sugestivo
 #  Ultima alteracao em 16/01/2021
 #
-#  Para facilitar:          sudo cp tex2pdf.bash /bin/tex2pdf && sudo chmod 755 /bin/tex2pdf
+#  Para facilitar:          mv tex2pdf.bash ~/tex2pdf && chmod 500 ~/tex2pdf
 #  Para compilar um .tex:   tex2pdf <NomeDoArquivo.tex>
 
 # ###
@@ -37,13 +37,13 @@ EOF
 # ###
 
 update(){
-   if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
-      file=$PREFIX/bin/tex2pdf
+   if [ "${PREFIX}" == "/data/data/com.termux/files/usr" ]; then
+      file="${PREFIX}/bin/tex2pdf"
    else
-      file=$HOME/bin/tex2pdf
+      file="${HOME}/bin/tex2pdf"
    fi
-   wget -qO $file https://raw.githubusercontent.com/ismaeldamiao/scripts/master/tex2pdf.bash
-   chmod 500 $file
+   wget -qO "${file}" https://raw.githubusercontent.com/ismaeldamiao/scripts/master/tex2pdf.bash
+   chmod 500 "${file}"
 }
 
 # ###
@@ -75,18 +75,20 @@ function tex(){
 # Verificar argumentos passados ao script
 # ###
 
-# Ajuda
 for arg in "$@"; do
-   # Menssagem de ajuda
    if [ "$arg" == "-h" ] || [ "$arg" == "help" ] || [ "$arg" == "--help" ]; then
+      # Menssagem de ajuda
       usage
       exit 0
    elif [[ "$arg" == *".tex" ]]; then
-      NOME=$(basename $arg .tex)
+      # Nome do arquivo a compilar
+      NOME="$(basename $arg .tex)"
    elif [ "$arg" == "--update" ]; then
+      # Atualizar este script
       update
       exit $?
    elif [ "$arg" == "-v" ]; then
+      # Execuatar com stdout e stderr padao
       std="stdout"
    fi
 done
@@ -94,15 +96,15 @@ done
 # Verificar se o compilador LaTeX estah instalado
 command -v pdflatex 1> /dev/null 2>&1 || exit 1
 # Verificar se o arquivo .tex existe
-[ -e ${NOME}.tex ] || exit 1
+[ -e "${NOME}.tex" ] || exit 1
 
 # Saida do compilador
 if [ "$std" == "stdout" ]; then
    # Compilar com saida
-   tex $NOME
+   tex "${NOME}"
 else
    # Compilar sem saida (stdout e stderr em /dev/null)
-   tex $NOME 1> /dev/null 2>&1
+   tex "${NOME}" 1> /dev/null 2>&1
 fi
 
 # ###
@@ -110,27 +112,27 @@ fi
 # ###
 
 rm \
-${NOME}.dvi \
-${NOME}.gz \
-${NOME}.dvi \
-${NOME}.bak \
-${NOME}.bbl \
-${NOME}.blg \
-${NOME}.aux \
-${NOME}.toc \
-${NOME}.lof \
-${NOME}.lot \
-${NOME}.log > /dev/null 2>&1
+"${NOME}.dvi" \
+"${NOME}.gz" \
+"${NOME}.dvi" \
+"${NOME}.bak" \
+"${NOME}.bbl" \
+"${NOME}.blg" \
+"${NOME}.aux" \
+"${NOME}.toc" \
+"${NOME}.lof" \
+"${NOME}.lot" \
+"${NOME}.log" > /dev/null 2>&1
 
 # ###
 # Abrir pdf
 # ###
 
-if [ "$PREFIX" == "/data/data/com.termux/files/usr" ]; then
-   [ -e ${NOME}.pdf ] && termux-open ${NOME}.pdf &
+if [ "${PREFIX}" == "/data/data/com.termux/files/usr" ]; then
+   [ -e "${NOME}.pdf" ] && termux-open "${NOME}.pdf" &
 else
-   [ -e ${NOME}.pdf ] && xdg-open ${NOME}.pdf &
-   #[ -e ${NOME}.pdf ] && xreader ${NOME}.pdf &
+   [ -e "${NOME}.pdf" ] && xdg-open "${NOME}.pdf" &
+   #[ -e "${NOME}.pdf" ] && xreader ${NOME}.pdf &
 fi
 
 exit 0
