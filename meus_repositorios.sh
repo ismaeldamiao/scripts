@@ -66,7 +66,13 @@ else
    # ###
 
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-   echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" > /etc/apt/sources.list.d/clang.list
+   echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" > ${FILE}
+
+   # ###
+   # gcc
+   # ###
+
+   sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 fi
 
