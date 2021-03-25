@@ -2,7 +2,7 @@
 
 # Testado no Ubuntu Minimal e no termux
 # wget -q https://github.com/ismaeldamiao/scripts/raw/master/meus_repositorios.sh && bash meus_repositorios.sh
-# Ultima alteracao em: 22 de fevereiro de 2021
+# Ultima alteracao em: 24 de março de 2021
 
 FILE=repositorios.list
 
