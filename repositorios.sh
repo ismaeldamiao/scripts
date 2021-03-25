@@ -4,7 +4,7 @@
 # wget -q https://github.com/ismaeldamiao/scripts/raw/master/meus_repositorios.sh && bash meus_repositorios.sh
 # Ultima alteracao em: 22 de fevereiro de 2021
 
-FILE=meus_repositorios.list
+FILE=repositorios.list
 
 if [ "${PREFIX}" == "/data/data/com.termux/files/usr" ]; then
    apt install -y gnupg ca-certificates wget root-repo x11-repo
@@ -65,6 +65,7 @@ else
    # clang
    # ###
 
+   echo "# clang" > ${FILE}
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
    echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" > ${FILE}
 
@@ -72,6 +73,7 @@ else
    # gcc
    # ###
 
+   echo "# GCC" > ${FILE}
    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 fi
