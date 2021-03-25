@@ -14,9 +14,9 @@ if [ "${PREFIX}" == "/data/data/com.termux/files/usr" ]; then
    # CC Tools
    # ###
 
-   echo "# CC Tools" > ${FILE}
+   echo "# CC Tools" >> ${FILE}
    wget -qO - https://cctools.info/public.key | apt-key add -
-   echo "deb https://cctools.info termux cctools" > ${FILE}
+   echo "deb https://cctools.info termux cctools" >> ${FILE}
    echo " "
 
 else
@@ -34,8 +34,8 @@ else
    # Linux mint
    # ###
 
-   echo "# Linux Mint" > ${FILE}
-   echo "deb http://packages.linuxmint.com/ ulyssa main upstream import backport" > ${FILE}
+   echo "# Linux Mint" >> ${FILE}
+   echo "deb http://packages.linuxmint.com/ ulyssa main upstream import backport" >> ${FILE}
    wget -q "http://packages.linuxmint.com/pool/main/l/linuxmint-keyring/linuxmint-keyring_2016.05.26_all.deb"
    dpkg -i linuxmint-keyring_2016.05.26_all.deb
    echo " "
@@ -44,9 +44,9 @@ else
    # Openvpn
    # ###
 
-   echo "# Openvpn" > ${FILE}
+   echo "# Openvpn" >> ${FILE}
    wget -qO - https://as-repository.openvpn.net/as-repo-public.gpg | apt-key add -
-   echo "deb http://as-repository.openvpn.net/as/debian buster main" > ${FILE}
+   echo "deb http://as-repository.openvpn.net/as/debian buster main" >> ${FILE}
    echo " "
 
    # ###
@@ -59,21 +59,21 @@ else
    # Java Script
    # ###
 
-   curl -fsSL https://deb.nodesource.com/setup_15.x | bash -
+   wget -qO - https://deb.nodesource.com/setup_15.x | bash -
 
    # ###
    # clang
    # ###
 
-   echo "# clang" > ${FILE}
+   echo "# clang" >> ${FILE}
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-   echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" > ${FILE}
+   echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" >> ${FILE}
+   echo "deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" >> ${FILE}
 
    # ###
    # gcc
    # ###
 
-   echo "# GCC" > ${FILE}
    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 fi
