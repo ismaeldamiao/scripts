@@ -66,7 +66,7 @@ else
    # ###
 
    echo "# clang" >> ${FILE}
-   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
    echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" >> ${FILE}
    echo "deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" >> ${FILE}
 
