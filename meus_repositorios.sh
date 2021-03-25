@@ -66,10 +66,7 @@ else
    # ###
 
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-   cat > /etc/apt/sources.list.d/clang.list <<EOF
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main
-deb-src http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main
-EOF
+   echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" > /etc/apt/sources.list.d/clang.list
 
 fi
 
