@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Testado no Ubuntu Minimal e no termux
-# wget -qO - https://github.com/ismaeldamiao/scripts/raw/master/repositorios.sh | sudo bash -
+# wget -qO - https://github.com/ismaeldamiao/scripts/raw/master/repositorios.sh | bash -
 # Ultima alteracao em: 24 de março de 2021
 
 FILE=repositorios.list
