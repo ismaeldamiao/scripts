@@ -96,9 +96,15 @@ for arg in "$@"; do
 done
 
 # Verificar se o compilador LaTeX estah instalado
-command -v pdflatex 1> /dev/null 2>&1 || exit 1
+command -v pdflatex 1> /dev/null 2>&1 || {
+   echo "Instale o programa pdflatex."
+   exit 1
+}
 # Verificar se o arquivo .tex existe
-[ -e "${NOME}.tex" ] || exit 1
+[ -e "${NOME}.tex" ] || {
+    echo "Não foi possível encontrar \'${NOME}\'."
+    exit 1
+}
 
 # Saida do compilador
 if [ "$std" == "stdout" ]; then
