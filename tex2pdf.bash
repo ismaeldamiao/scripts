@@ -102,7 +102,7 @@ command -v pdflatex 1> /dev/null 2>&1 || {
 }
 # Verificar se o arquivo .tex existe
 [ -e "${NOME}.tex" ] || {
-    echo "Não foi possível encontrar \'${NOME}\'."
+    echo "Não foi possível encontrar '${NOME}.tex'."
     exit 1
 }
 
